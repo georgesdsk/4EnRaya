@@ -3,11 +3,10 @@ import java.util.Random;
 Esta clase trata de gestionar el juego de 3 en raya.
  */
 
-public class Gestora {
+public class Partida {
 
     private Tablero tablero;
-    private Mensajes mensajes;
-    private Validaciones validaciones;
+    private ValidacionesMensajes validaciones;
     private int contador = 1;
     private char eleccionj1 = 'X';
     private char eleccionj2 = 'O';
@@ -17,11 +16,16 @@ public class Gestora {
     private boolean ganada = false;
 
 
-    public Gestora() {
+    public Partida() {
 
         this.tablero = new Tablero();
-        this.mensajes = new Mensajes();
-        this.validaciones = new Validaciones();
+        this.validaciones = new ValidacionesMensajes();
+    }
+
+    public Partida(int x, int y){
+
+        this.tablero = new Tablero(x,y);
+        this.validaciones = new ValidacionesMensajes();
     }
 
     public Tablero getTablero() {
@@ -53,17 +57,11 @@ public class Gestora {
 
     public void setTipoPartida() {
 
-        mensajes.tipoPartida();
-
-        if (validaciones.numeroEntre(1, 2) == 2) {
+        if (validaciones.elegirTipoPartida(1, 2) == 2) {
             tipoPartida = true;
         }
 
     }
-
-
-
-
 
 /*
     Entradas: -
@@ -75,9 +73,7 @@ public class Gestora {
 
     public void elegirCaracter() {
 
-        mensajes.elegirCaracter();
-
-        if (validaciones.numeroEntre(1, 2) == 1) {
+        if (validaciones.elegirCaracter(1, 2) == 1) {
             eleccionj1 = 'O';
 
             if (tipoPartida) {
@@ -103,17 +99,17 @@ public class Gestora {
 
         if (this.contador % 2 != 0) { // Siempre va a empezar el jugador 1
 
-            Mensajes.escribirJugador('1', eleccionj1);
+           validaciones.escribirJugador('1', eleccionj1);
             turno = '1';
 
         } else {
 
             if (tipoPartida) {
 
-                Mensajes.escribirJugador('2' ,eleccionj2);
+                validaciones.escribirJugador('2' ,eleccionj2);
                 turno = '2';
             } else {
-                Mensajes.escribirJugador('O', eleccionOrdenador);
+                validaciones.escribirJugador('O', eleccionOrdenador);
                 turno = 'O';
             }
 
@@ -132,34 +128,32 @@ public class Gestora {
 
     public void ponerCaracter() {
 
-        int x = 0, y = 0;
+        int y = 0;
 
         Random rd = new Random();
 
+        do {
 
-        do {//mientras la casilla elegida no este libre
+            if (turno =='1' || turno =='2'){//si le toca a un jugador
 
-            if (turno != 'O') {
 
-                mensajes.ponerCaracterTablero();
-                x = validaciones.numeroEntre(0, 2);
-                y = validaciones.numeroEntre(0, 2);
+                y = validaciones.elegirLinea( tablero.getTablero()[0].length);
 
-            } else {
+            }else {
 
-                x = rd.nextInt(2);
-                y = rd.nextInt(2);
-
+                y = rd.nextInt(tablero.getTablero()[0].length);
             }
 
+        }while(tablero.getCasilla(tablero.getTablero().length -1 , y) != '*');//mientras la ultima casilla del eje horizontal que se le pase este ocupada
 
-        } while (tablero.getCasilla(x, y) != '*'); // ya que tengo esta condicion, la aprovecho para implementar la eleccion aleatoria del ordenador
 
-        tablero.setCasilla(x, y, getEleccion(turno));
+        tablero.setFigura(y,getEleccion(turno));
 
-        Mensajes.escribirJugada(x,y);
+        validaciones.jugada(y);        //escribe la jugada
+
 
         contador++;
+
 
     }
 
@@ -206,58 +200,7 @@ public class Gestora {
     public char comprobarGanador() {
 
 
-        for (int i = 0; i < 2 && !ganada; i++) {
-
-            //Verticales
-
-            if (!ganada && (tablero.getCasilla(0, i) != '*') && tablero.getCasilla(0, i) == tablero.getCasilla(1, i) && tablero.getCasilla(0, i) == tablero.getCasilla(2, i)) {
-
-                ganada = true;
-
-            }
-
-            //Horizontales
-
-            if (!ganada && (tablero.getCasilla(i, 0) != '*') && tablero.getCasilla(i, 0) == tablero.getCasilla(i, 1) && tablero.getCasilla(i, 1) == tablero.getCasilla(i, 2)) {
-
-                ganada = true;
-
-            }
-            //Diagonal1
-
-            if (!ganada && (tablero.getCasilla(0, 0) != '*') && tablero.getCasilla(1, 1) == tablero.getCasilla(0, 0) && tablero.getCasilla(1, 1) == tablero.getCasilla(2, 2)) {
-
-                ganada = true;
-
-            }
-
-            //Diagonal2
-
-            if (!ganada && (tablero.getCasilla(2, 0) != '*') && tablero.getCasilla(1, 1) == tablero.getCasilla(2, 0) && tablero.getCasilla(1, 1) == tablero.getCasilla(0, 2)) {
-
-                ganada = true;
-
-            }
-
-
-        }
-
-            //Empate
-            if (contador> 10){//ya que el contador empieza por 1, debe acabar en 10, que serán 9 movimientos
-                turno ='e';
-                ganada = true;
-            }
-
-            //Si alguien gana o es empatada, que envie un mensaje
-
-            if (ganada) {
-                mensajes.escribirGanador(turno, getEleccion(turno));
-            }else{
-                turno ='n'; //si no se sigue
-            }
-
-            return turno; // el ganador
-
+        return turno;
     }
 
 

@@ -1,63 +1,92 @@
 /*
-Esta clase trata de tablero, crea el array 2X2 donde guardadará los caracteres puestos por los jugadores
+Esta clase trata de tablero, crea el array que se desee donde guardadará los caracteres puestos por los jugadores
  */
 
 
 public class Tablero {
 
-    private char[][] tablero = new char[3][3];
+    private char[][] tablero;
+
+
 
     public Tablero() {
+
+        this.tablero = new char[6][7];
+        rellenarTablero();
+    }
+
+    public Tablero(int x, int y){
+
+        this.tablero = new char[x][y];
+        rellenarTablero();
+    }
+
+    /*
+    Entradas: -
+    Salidas: -
+    Precondiciones: -
+    Postcondiciones: rellena el tablero entero de *
+    */
+
+
+    public void rellenarTablero() {
 
         for (int i = 0; i < tablero.length; i++) {
 
             for (int j = 0; j < tablero[i].length; j++) {
 
                 tablero[i][j] = '*';
+            }
+        }
+    }
+
+
+        public char[][] getTablero () {
+
+            return this.tablero;
+        }
+
+
+        public char getCasilla ( int x, int y){
+
+            char casilla = '*';
+
+            try {
+
+                casilla = tablero[x][y];
+
+            } catch (ArrayIndexOutOfBoundsException e) {
+
+                e.printStackTrace();
 
             }
-
+            return casilla;
         }
+ /*
+    Entradas: int y (columna), char figura(con lo que se va a rellenar)
+    Salidas: -
+    Precondiciones: -
+    Postcondiciones: y no se puede salir del array
+*/
 
-    }
 
+    public void setFigura (int y, char figura){
 
-    public char[][] getTablero(){
+        boolean fin = false;
 
-        return tablero;
-    }
+        for (int i = 0; i < tablero.length && !fin; i++) {
 
-    public char getCasilla(int x, int y){
+            if (tablero[i][y]== '*' ){ // si la casilla esta libre
 
-        char casilla = '*';
+                tablero[i][y] = figura;
+                fin = true;
 
-        try{
-
-            casilla = tablero[x][y];
-
-        }catch(ArrayIndexOutOfBoundsException e){
-
-            e.printStackTrace();
-
+            }
         }
-        return casilla;
-    }
-
-
-    public void setCasilla(int x, int y, char caracter){
-
-        try {
-
-            tablero[x][y] = caracter;
-
-
-        }catch(ArrayIndexOutOfBoundsException e){
-
-            e.printStackTrace();
-        }
-
     }
 
 
 
-}
+
+    }
+

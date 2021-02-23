@@ -2,19 +2,20 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Gestora gestora = new Gestora();
+        Partida partida = new Partida();
         Mensajes mensajes = new Mensajes();
         Tablero tablero =  new Tablero();
+        ValidacionesMensajes validaciones = new ValidacionesMensajes();
         char turno, ganador;
 
-        gestora.setTipoPartida();
-        gestora.elegirCaracter();
-        mensajes.pintarTablero(gestora.getTablero());
+        partida.setTipoPartida();
+        partida.elegirCaracter();
+        validaciones.pintarTablero(partida.getTablero());
         do {
-            gestora.calcularTurno();
-            gestora.ponerCaracter();
-            mensajes.pintarTablero(gestora.getTablero());
-        }while (gestora.comprobarGanador()== 'n' );
+            partida.calcularTurno();
+            partida.ponerCaracter();
+
+        }while (partida.comprobarGanador()== 'n' );
 
 
 
