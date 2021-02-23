@@ -9,6 +9,15 @@ public class Validaciones {
     }
 
 
+/*
+    Entradas: (int) min , max = rangos minimos y maximos permitidos
+    Salidas: int, numero validado entre esos rangos
+    Precondiciones: -
+    Postcondiciones: -
+*/
+
+
+
     public int numeroEntre(int min, int max) {
 
         int numero;
@@ -23,6 +32,14 @@ public class Validaciones {
         return numero;
 
     }
+
+    /*
+    Entradas: (char) 1 y 2
+    Salidas: char elegido entre uno de ellos
+    Precondiciones: que haya un Scanner validado tipo sc
+    Postcondiciones:
+*/
+
 
 
     public char elegirCaracter(char caracter1, char caracter2){

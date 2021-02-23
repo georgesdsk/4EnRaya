@@ -1,3 +1,8 @@
+/*
+Esta clase trata de tablero, crea el array 2X2 donde guardadará los caracteres puestos por los jugadores
+ */
+
+
 public class Tablero {
 
     private char[][] tablero = new char[3][3];
