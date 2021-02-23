@@ -1,0 +1,19 @@
+
+Z	java:S106#"9Replace this use of System.out or System.err by a logger.(Ú€–³ûÿÿÿÿ8¨ç§Çü.
+O
+java:S1199%"-Extract this nested code block into a method.(·ø·Ôÿÿÿÿÿ8‘ã¨Çü.
+O
+java:S1199#"-Extract this nested code block into a method.(Ú€–³ûÿÿÿÿ8¨ç§Çü.
+œ
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(³êú¨øÿÿÿÿ
+S	java:S106	"9Replace this use of System.out or System.err by a logger.(ğíğùÿÿÿÿ
+Z	java:S106"9Replace this use of System.out or System.err by a logger.(ù ÆÁÿÿÿÿÿ8ß«öÆü.
+N	java:S106"9Replace this use of System.out or System.err by a logger.(ÿæÑË
+>	java:S131!""Add a default case to this switch.(ş‚÷Ú8†ô¥Çü.
+J
+java:S1199$"-Extract this nested code block into a method.(ÒÜ­Ä8‘ã¨Çü.
+U	java:S106$"9Replace this use of System.out or System.err by a logger.(ÒÜ­Ä8‘ã¨Çü.
+Z	java:S106%"9Replace this use of System.out or System.err by a logger.(·ø·Ôÿÿÿÿÿ8‘ã¨Çü.
+S	java:S106"9Replace this use of System.out or System.err by a logger.(Àüùÿÿÿÿ
+0
+java:S1220""Move this file to a named package.
