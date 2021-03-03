@@ -74,7 +74,7 @@ public class Tablero {
 
         boolean fin = false;
 
-        for (int i = 0; i < tablero.length && !fin; i++) {
+        for (int i = tablero.length -1 ; i > -1 && !fin; i--) { // Ya que el length devuelve el tamano total sin contar el cero, siempre sera 1+ que las posiciones del array
 
             if (tablero[i][y]== '*' ){ // si la casilla esta libre
 

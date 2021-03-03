@@ -144,7 +144,7 @@ public class Partida {
                 y = rd.nextInt(tablero.getTablero()[0].length);
             }
 
-        }while(tablero.getCasilla(tablero.getTablero().length -1 , y) != '*');//mientras la ultima casilla del eje horizontal que se le pase este ocupada
+        }while(tablero.getCasilla(0, y) != '*');//mientras la ultima casilla del eje horizontal que se le pase este ocupada
 
 
         tablero.setFigura(y,getEleccion(turno));
@@ -200,8 +200,193 @@ public class Partida {
     public char comprobarGanador() {
 
 
+        //linea horizontal
+
+        if (!comprobarHorizontal() && !comprobarDiagonal()){
+
+            turno = 'n';
+
+        }
+
+
+
+
         return turno;
     }
+
+
+
+    /*
+    Entradas:-
+    Salidas: boolean, si se ha ganado
+    Precondiciones: partida empezada
+    Postcondiciones:
+     */
+
+
+    private boolean comprobarHorizontal(){
+
+        int acumulador = 0;
+        char caracterAcumulado= ' ', caracterLeido ;
+
+
+        for (int i = 0; i < tablero.getTablero().length && !ganada; i++) {
+
+            acumulador = 0;
+            caracterAcumulado= ' ';
+
+
+            for (int j = 0; j < tablero.getTablero()[0].length && !ganada; j++) { //
+
+                caracterLeido = tablero.getTablero()[i][j];
+
+
+                if (caracterLeido == caracterAcumulado) {
+
+                    ++acumulador;
+
+                    if (acumulador > 2) {
+
+                        ganada = true;
+
+                    }
+
+                } else {
+
+                    acumulador = 0;
+
+                    if (caracterLeido != '*') {
+
+                        caracterAcumulado = caracterLeido;
+                    }
+                }
+            }
+        }
+
+        return ganada;
+
+
+
+
+
+    }
+
+
+    /*
+    Entradas:-
+    Salidas: boolean, si se ha rellenado la diagonal inversa de 4 caracteres seguidos e iguales
+    Precondiciones: partida empezada
+    Postcondiciones: se comprobaran todas las diagonales
+     */
+
+
+    private boolean comprobarVertical(){
+
+        int acumulador = 0;
+        char caracterAcumulado= ' ', caracterLeido ;
+
+
+        for (int i = 0; i < tablero.getTablero()[0].length && !ganada; i++) { // recorren las y
+
+            acumulador = 0;
+            caracterAcumulado= ' ';
+
+
+            for (int j = 0; j < tablero.getTablero().length && !ganada; j++) { // recorre las x
+
+                caracterLeido = tablero.getTablero()[j][i];
+
+
+                if (caracterLeido == caracterAcumulado) {
+
+                    ++acumulador;
+
+                    if (acumulador > 2) {
+
+                        ganada = true;
+
+                    }
+
+                } else {
+
+                    acumulador = 0;
+
+                    if (caracterLeido != '*') {
+
+                        caracterAcumulado = caracterLeido;
+                    }
+                }
+            }
+        }
+
+        return ganada;
+
+
+    }
+
+
+
+    /*Entradas: -
+      Salidas: boolean, si la partida se ha ganado por diagonales
+      Precondiciones: El tablero debe de estar inicializado y tiene que ser igual o mayor que 4x4
+      Postcondiciones: Se comprobaran todas las diagonales si tienen una linea de 4 figuras iguales seguidas
+
+
+     */
+
+
+
+    public boolean comprobarDiagonal(){
+
+        int acumulador = 0;
+        char caracterLeido =' ';
+        char caracterAcumulado = '-';
+        boolean ganada = false;
+
+        for (int i = 3; i <tablero.getTablero().length && !ganada ; i++) { //recorremos las x, empieza desde el 3 ya que no se puede pintar ninguna diagonal a partir de 3
+
+            acumulador = 0;
+            caracterAcumulado= ' ';
+
+
+            for (int j = 0; j <tablero.getTablero()[0].length -3 && !ganada ; j++) {
+
+               caracterLeido =  tablero.getCasilla(i-j,j);
+
+                if ( caracterLeido == caracterAcumulado){
+
+                    acumulador++;
+
+                    if (acumulador > 2){
+
+                        ganada = true;
+
+                    }
+
+                }else if(caracterLeido != '*'){
+
+                    caracterAcumulado = caracterLeido;
+                    acumulador = 0;
+
+                }
+
+            }
+
+        }
+
+    }
+
+
+
+
+    /*
+    Entradas: -
+    Salidas: boolean si la partida se ha ganado o no
+    Precondiciones:
+    Poscondiciones:
+     */
+
+    private boolean comprobarLetra(){}
 
 
 

@@ -14,7 +14,7 @@ public class Main {
         do {
             partida.calcularTurno();
             partida.ponerCaracter();
-
+            validaciones.pintarTablero(partida.getTablero());
         }while (partida.comprobarGanador()== 'n' );
 
 
